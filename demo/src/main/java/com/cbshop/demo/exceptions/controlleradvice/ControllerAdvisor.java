@@ -13,10 +13,24 @@ import java.util.Map;
 @ControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = {RuntimeException.class})
-    protected ResponseEntity<?> handleNotFoundException(RuntimeException ex, WebRequest request) {
+    @ExceptionHandler(value = InvalidDataException.class)
+    protected ResponseEntity<?> handleInvalidDataException(InvalidDataException ex, WebRequest request) {
+        return handleExceptionInternal(ex,
+                Map.of("HTTP Status", HttpStatus.INTERNAL_SERVER_ERROR, "response body", Map.of("message", ex.getLocalizedMessage())),
+                new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+    }
+
+    @ExceptionHandler(value = ItemNotFoundException.class)
+    protected ResponseEntity<?> handleNotFoundException(ItemNotFoundException ex, WebRequest request) {
         return handleExceptionInternal(ex,
                 Map.of("HTTP Status", HttpStatus.NOT_FOUND, "response body", Map.of("message", ex.getLocalizedMessage())),
                 new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler(value = ServerError.class)
+    protected ResponseEntity<?> handleServerExceptions(ServerError ex, WebRequest request) {
+        return handleExceptionInternal(ex,
+                Map.of("HTTP Status", HttpStatus.INTERNAL_SERVER_ERROR, "response body", Map.of("message", ex.getLocalizedMessage())),
+                new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 }
