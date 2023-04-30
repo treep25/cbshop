@@ -1,20 +1,20 @@
 package com.cbshop.demo.user.auth.passwordUtils;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Component;
+
+import java.nio.charset.StandardCharsets;
 
 @Component
 public class PasswordEncoder {
 
-    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-
-
+    private static final String salt = "akjenfwiJDWHOCFNOIAWJNXFDII44388kjdfndnj213123";
     public String decode(String password) {
-        return bCryptPasswordEncoder.encode(password);
+        return Base64.encodeBase64String((password +salt).getBytes(StandardCharsets.UTF_8));
     }
 
     public boolean comparePasswords(String password1, String password2) {
-        // TODO: 30.04.2023
         return password1
                 .equals(decode(password2));
     }
