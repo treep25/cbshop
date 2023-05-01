@@ -1,5 +1,6 @@
 package com.cbshop.demo.user.controller;
 
+import com.cbshop.demo.user.model.User;
 import com.cbshop.demo.user.model.UserDTO;
 import com.cbshop.demo.user.service.UserService;
 import com.cbshop.demo.user.userMapper.UserMapper;

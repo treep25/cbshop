@@ -1,4 +1,4 @@
-package com.cbshop.demo;
+package com.cbshop.demo.session;
 
 import com.cbshop.demo.user.model.User;
 import jakarta.servlet.http.HttpSession;

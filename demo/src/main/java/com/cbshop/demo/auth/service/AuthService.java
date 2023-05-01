@@ -1,6 +1,6 @@
 package com.cbshop.demo.auth.service;
 
-import com.cbshop.demo.SessionManager;
+import com.cbshop.demo.session.SessionManager;
 import com.cbshop.demo.exceptions.controlleradvice.ItemNotFoundException;
 import com.cbshop.demo.exceptions.controlleradvice.ServerError;
 import com.cbshop.demo.token.model.VerificationToken;
