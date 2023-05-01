@@ -33,3 +33,10 @@ logging:
 server:
   error:
     include-message: always
+  servlet:
+    session:
+      timeout: 15m
+      session:
+        cookie:
+          http-only: true
+          secure: true
