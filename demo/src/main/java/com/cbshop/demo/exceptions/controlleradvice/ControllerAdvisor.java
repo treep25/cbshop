@@ -3,6 +3,8 @@ package com.cbshop.demo.exceptions.controlleradvice;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -32,5 +34,18 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex,
                 Map.of("HTTP Status", HttpStatus.INTERNAL_SERVER_ERROR, "response body", Map.of("message", ex.getLocalizedMessage())),
                 new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+    }
+
+    @ExceptionHandler({AccessDeniedException.class})
+    protected ResponseEntity<?> handleUserInvalidDataException(AccessDeniedException ex, WebRequest request) {
+        return handleExceptionInternal(ex,
+                Map.of("HTTP Status", HttpStatus.FORBIDDEN, "response body", Map.of("message", ex.getLocalizedMessage())),
+                new HttpHeaders(), HttpStatus.FORBIDDEN, request);
+    }
+
+    @ExceptionHandler({AuthenticationException.class})
+    public ResponseEntity<?> handleAuthenticationException(Exception ex) {
+        return new ResponseEntity<>(Map.of("HTTP Status", HttpStatus.UNAUTHORIZED, "response body", Map.of("message", ex.getLocalizedMessage()))
+                , HttpStatus.UNAUTHORIZED);
     }
 }

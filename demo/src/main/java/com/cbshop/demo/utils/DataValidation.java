@@ -2,9 +2,10 @@ package com.cbshop.demo.utils;
 
 import com.cbshop.demo.enums.Category;
 import com.cbshop.demo.exceptions.controlleradvice.InvalidDataException;
+import com.cbshop.demo.auth.model.LoginRequest;
+import com.cbshop.demo.auth.model.RegistrationRequest;
+import com.cbshop.demo.user.model.User;
 import com.cbshop.demo.product.model.ProductDTO;
-import com.cbshop.demo.user.auth.model.LoginRequest;
-import com.cbshop.demo.user.auth.model.RegistrationRequest;
 import com.cbshop.demo.user.model.UserDTO;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
