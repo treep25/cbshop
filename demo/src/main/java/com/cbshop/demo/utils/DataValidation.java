@@ -3,6 +3,7 @@ package com.cbshop.demo.utils;
 import com.cbshop.demo.exceptions.controlleradvice.InvalidDataException;
 import com.cbshop.demo.user.auth.model.LoginRequest;
 import com.cbshop.demo.user.auth.model.RegistrationRequest;
+import com.cbshop.demo.user.model.User;
 import org.apache.commons.lang3.StringUtils;
 
 public class DataValidation {
@@ -12,6 +13,12 @@ public class DataValidation {
 
     private static <T> boolean isObjectNotNull(T value) {
         return value != null;
+    }
+
+    public static void isIdValid(long id) {
+        if (id <= 0) {
+            throw new InvalidDataException("Invalid input id " + id);
+        }
     }
 
     public static void isUserValidForRegistration(RegistrationRequest registrationRequest) {
@@ -49,9 +56,32 @@ public class DataValidation {
         }
     }
 
-    public static void isVerificationTokenValid(String verificationToken){
-        if(verificationToken == null || verificationToken.isBlank()){
+    public static void isVerificationTokenValid(String verificationToken) {
+        if (verificationToken == null || verificationToken.isBlank()) {
             throw new InvalidDataException("Token is not valid");
+        }
+    }
+
+    public static void validatePageAndSizePagination(int page, int size) {
+        if (page >= 0) {
+            if (size >= 1) {
+                return;
+            }
+            throw new InvalidDataException("page size must not be less than one size = " + size);
+        }
+        throw new InvalidDataException("page index must not be less than zero page = " + page);
+    }
+
+    public static void validateUserForUpdating(User user){
+        if(user.getFirstName() != null){
+            if(isStringValuesCorrect(user.getFirstName())){
+                throw new InvalidDataException("Invalid input first name");
+            }
+        }
+        if(user.getLastName() != null){
+            if(isStringValuesCorrect(user.getLastName())){
+                throw new InvalidDataException("Invalid input last name");
+            }
         }
     }
 }
