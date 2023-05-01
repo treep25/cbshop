@@ -1,6 +1,6 @@
-package com.cbshop.demo.user.auth.mapper;
+package com.cbshop.demo.auth.mapper;
 
-import com.cbshop.demo.user.auth.model.RegistrationRequest;
+import com.cbshop.demo.auth.model.RegistrationRequest;
 import com.cbshop.demo.user.model.User;
 import org.springframework.stereotype.Component;
 

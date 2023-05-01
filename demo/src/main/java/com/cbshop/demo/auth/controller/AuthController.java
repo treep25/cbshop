@@ -1,10 +1,10 @@
-package com.cbshop.demo.user.auth.controller;
+package com.cbshop.demo.auth.controller;
 
-import com.cbshop.demo.user.auth.model.LoginRequest;
-import com.cbshop.demo.user.auth.model.RegistrationRequest;
-import com.cbshop.demo.user.auth.service.AuthService;
-import com.cbshop.demo.user.model.User;
+import com.cbshop.demo.auth.service.AuthService;
+import com.cbshop.demo.auth.model.LoginRequest;
+import com.cbshop.demo.auth.model.RegistrationRequest;
 import com.cbshop.demo.utils.DataValidation;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,10 +18,9 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, HttpSession session) {
         DataValidation.validateLoginUser(loginRequest);
-
-        authService.loginUser(loginRequest);
+        authService.loginUser(loginRequest, session);
 
         return ResponseEntity.ok().build();
 
@@ -35,10 +34,10 @@ public class AuthController {
     }
 
     @GetMapping("/verification")
-    public ResponseEntity<?> verifyVerificationToken(@RequestParam("token") String verificationToken) {
+    public ResponseEntity<?> verifyVerificationToken(@RequestParam("token") String verificationToken, HttpSession session) {
         DataValidation.isVerificationTokenValid(verificationToken);
 
         return new ResponseEntity<>(authService
-                .verifyVerificationToken(verificationToken), HttpStatus.CREATED);
+                .verifyVerificationToken(verificationToken, session), HttpStatus.CREATED);
     }
 }

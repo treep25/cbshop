@@ -1,4 +1,4 @@
-package com.cbshop.demo.user.auth.model;
+package com.cbshop.demo.auth.model;
 
 import lombok.Data;
 
