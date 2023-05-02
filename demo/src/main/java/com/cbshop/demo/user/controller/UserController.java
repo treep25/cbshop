@@ -32,7 +32,7 @@ public class UserController {
 
         return ResponseEntity.ok(users);
     }
-
+    //todo
     @PreAuthorize("@permissionComponent.hasPermission(#user,#id)")
     @GetMapping("/{id}")
     public ResponseEntity<?> readById(@AuthenticationPrincipal User user, @PathVariable long id) {
