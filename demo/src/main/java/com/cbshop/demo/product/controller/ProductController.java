@@ -5,10 +5,12 @@ import com.cbshop.demo.product.model.Product;
 import com.cbshop.demo.product.model.ProductDTO;
 import com.cbshop.demo.product.service.ProductService;
 import com.cbshop.demo.utils.DataValidation;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +55,6 @@ public class ProductController {
     public ResponseEntity<?> create(@RequestBody ProductDTO productDTO) {
         DataValidation.isProductValidForCreate(productDTO);
         Product product = productService.createProduct(productDTO);
-        return ResponseEntity.ok(productEntityToDtoMapper.entityToDto(product));
+        return new ResponseEntity<>(productEntityToDtoMapper.entityToDto(product), HttpStatus.CREATED);
     }
 }

@@ -1,10 +1,9 @@
 package com.cbshop.demo.utils;
 
-import com.cbshop.demo.enums.Category;
-import com.cbshop.demo.exceptions.controlleradvice.InvalidDataException;
 import com.cbshop.demo.auth.model.LoginRequest;
 import com.cbshop.demo.auth.model.RegistrationRequest;
-import com.cbshop.demo.user.model.User;
+import com.cbshop.demo.enums.Category;
+import com.cbshop.demo.exceptions.controlleradvice.InvalidDataException;
 import com.cbshop.demo.product.model.ProductDTO;
 import com.cbshop.demo.user.model.UserDTO;
 import org.apache.commons.lang3.EnumUtils;
@@ -103,8 +102,9 @@ public class DataValidation {
             if (isPriceValid(productDTO.getPrice())) {
                 throw new InvalidDataException("Invalid input price");
             }
+        } else {
+            throw new InvalidDataException("Invalid input");
         }
-        throw new InvalidDataException("Invalid input");
     }
 
     public static void isProductValidForUpdate(ProductDTO productDTO) {
@@ -112,7 +112,7 @@ public class DataValidation {
             if (productDTO.getName() != null && isStringValuesNotCorrect(productDTO.getName())) {
                 throw new InvalidDataException("Invalid input name");
             }
-            if (productDTO.getDescription() != null &&isStringValuesNotCorrect(productDTO.getDescription())) {
+            if (productDTO.getDescription() != null && isStringValuesNotCorrect(productDTO.getDescription())) {
                 throw new InvalidDataException("Invalid input description");
             }
             if (productDTO.getCategory() != null && !EnumUtils.isValidEnum(Category.class, productDTO.getCategory().toString())) {
@@ -121,8 +121,9 @@ public class DataValidation {
             if (productDTO.getPrice() != null && productDTO.getPrice() < 1) {
                 throw new InvalidDataException("Invalid input price");
             }
+        } else {
+            throw new InvalidDataException("Invalid input");
         }
-        throw new InvalidDataException("Invalid input");
     }
 
     private static boolean isPriceValid(Integer price) {

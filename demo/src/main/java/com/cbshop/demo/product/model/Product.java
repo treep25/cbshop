@@ -23,6 +23,7 @@ public class Product {
     private String name;
     private String description;
     private Integer price;
+    private static final String currency = "UAH";
     private Category category;
     @CreatedDate
     private Date createDate;

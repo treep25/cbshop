@@ -36,6 +36,8 @@ public class SecurityConfiguration {
                 .permitAll()
                 .requestMatchers("/api/v1/users").hasAuthority(Role.ADMIN.name())
                 .requestMatchers(HttpMethod.GET, "/api/v1/users/**").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
+                .anyRequest()
+                .authenticated()
                 .and()
                 .sessionManagement()
                 .invalidSessionUrl("/invalidSession.html")
