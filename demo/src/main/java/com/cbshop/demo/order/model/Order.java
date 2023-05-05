@@ -1,9 +1,13 @@
-package com.cbshop.demo.order;
+package com.cbshop.demo.order.model;
 
+import com.cbshop.demo.order.enums.OrderStatus;
 import com.cbshop.demo.product.model.Product;
 import com.cbshop.demo.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.util.Date;
 
 @Entity
 @Getter
@@ -18,8 +22,11 @@ public class Order {
     private Long id;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Product product;
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToOne
     private User user;
-    private int price;
-    //todo data purchasasise
+    private Integer price;
+    @CreatedDate
+    private Date createDate;
+    private Date guarantee;
+    private OrderStatus orderStatus;
 }
