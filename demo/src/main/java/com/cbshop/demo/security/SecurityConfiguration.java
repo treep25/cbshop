@@ -28,17 +28,19 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                //TODO
                 .cors().disable()
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/auth/**", "/error")
                 .permitAll()
-                .requestMatchers("/api/v1/users").hasAuthority(Role.ADMIN.name())
-                .requestMatchers(HttpMethod.GET, "/api/v1/users/**", "/api/v1/order/by-user-id/**").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
-                .requestMatchers(HttpMethod.GET, "/api/v1/order", "/api/v1/order/**").hasAuthority(Role.ADMIN.name())
-                .requestMatchers(HttpMethod.PATCH, "/api/v1/order/**").hasAuthority(Role.ADMIN.name())
-                .requestMatchers(HttpMethod.POST, "/api/v1/order/**").hasAnyAuthority(Role.USER.name(), Role.ADMIN.name())
+                .requestMatchers(HttpMethod.POST, "/api/v1/order/**", "/api/v1/order/basket")
+                .hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
+                .requestMatchers(HttpMethod.GET, "/api/v1/order/by-user-id/**", "/api/v1/users/**", "/api/v1/products", "/api/v1/products/**")
+                .hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
+                .requestMatchers(HttpMethod.GET, "/api/v1/order/**", "/api/v1/order").hasAuthority(Role.ADMIN.name())
+                .requestMatchers(HttpMethod.PATCH, "/api/v1/order/**", "/api/v1/products/**", "/api/v1/users/**").hasAuthority(Role.ADMIN.name())
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/products/**", "/api/v1/users/**").hasAuthority(Role.ADMIN.name())
+                .requestMatchers(HttpMethod.POST, "/api/v1/products").hasAuthority(Role.ADMIN.name())
                 .anyRequest()
                 .authenticated()
                 .and()
