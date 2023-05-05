@@ -26,14 +26,18 @@ public class SessionManager {
     }
 
     public void removeSomeProductsFromBasket(HttpSession session, List<Long> productIds){
-        basketService.removeFromBasket(session,productIds);
+        basketService.removeFromBasket(session, productIds);
     }
 
-    public void addSomeProductsToBasket(HttpSession session, List<Long> productIds){
-        basketService.addProductsToBasket(session,productIds);
+    public void addSomeProductsToBasket(HttpSession session, List<Long> productIds) {
+        basketService.addProductsToBasket(session, productIds);
     }
 
-    public List<Product> getBasketFromSession(HttpSession session){
+    public List<Product> getBasketFromSession(HttpSession session) {
         return basketService.getBasket(session);
+    }
+
+    public long getUserId(HttpSession session) {
+        return (long) session.getAttribute("Id");
     }
 }

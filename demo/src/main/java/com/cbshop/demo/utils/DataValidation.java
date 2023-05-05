@@ -9,7 +9,12 @@ import com.cbshop.demo.user.model.UserDTO;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.List;
+
 public class DataValidation {
+
+    private static final List<String> currencyList = List.of("USD", "UAH", "EUR");
+
     private static boolean isStringValuesNotCorrect(String s) {
         return s == null || StringUtils.isBlank(s) || StringUtils.isNumeric(s);
     }
@@ -101,6 +106,9 @@ public class DataValidation {
             }
             if (isPriceValid(productDTO.getPrice())) {
                 throw new InvalidDataException("Invalid input price");
+            }
+            if (productDTO.getCurrency() == null || !currencyList.contains(productDTO.getCurrency())) {
+                throw new InvalidDataException("Invalid input currency");
             }
         } else {
             throw new InvalidDataException("Invalid input");

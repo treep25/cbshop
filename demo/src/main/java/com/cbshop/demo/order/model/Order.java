@@ -6,6 +6,7 @@ import com.cbshop.demo.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
 
@@ -16,15 +17,19 @@ import java.util.Date;
 @RequiredArgsConstructor
 @Builder
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    private long id;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "product_id")
     private Product product;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id")
     private User user;
-    private Integer price;
+    private int price;
     @CreatedDate
     private Date createDate;
     private Date guarantee;

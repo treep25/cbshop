@@ -17,6 +17,7 @@ public class ProductEntityToDtoMapper {
                 .description(product.getDescription())
                 .price(product.getPrice())
                 .category(product.getCategory())
+                .currency(product.getCurrency())
                 .build();
     }
 

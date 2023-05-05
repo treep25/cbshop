@@ -12,6 +12,7 @@ public class ProductDtoToEntityMapper {
                 .price(productDTO.getPrice())
                 .description(productDTO.getDescription())
                 .category(productDTO.getCategory())
+                .currency(productDTO.getCurrency())
                 .build();
     }
 }

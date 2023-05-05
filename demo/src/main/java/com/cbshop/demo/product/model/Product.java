@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
 
@@ -15,6 +16,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 @Builder
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +25,7 @@ public class Product {
     private String name;
     private String description;
     private Integer price;
-    private static final String currency = "UAH";
+    private String currency;
     private Category category;
     @CreatedDate
     private Date createDate;

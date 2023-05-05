@@ -4,6 +4,7 @@ import com.cbshop.demo.order.mapper.OrderEntityToDtoMapper;
 import com.cbshop.demo.order.model.Order;
 import com.cbshop.demo.order.service.OrderService;
 import com.cbshop.demo.user.model.User;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,15 @@ public class OrderController {
                                          @Min(value = 0, message = "Discount should be >= 0") int guaranteeDays) {
         Order order = orderService.createOrder(user.getId(), productId, guaranteeDays);
         return new ResponseEntity<>(Map.of("order", orderEntityToDtoMapper.entityToDto(order)), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/basket")
+    public ResponseEntity<?> createOrderFormBasket(@AuthenticationPrincipal User user,
+                                                   HttpSession session,
+                                                   @RequestParam(value = "page", defaultValue = "0")
+                                                   @Min(value = 0, message = "Discount should be >= 0") int guaranteeDays) {
+        Page<Order> orders = orderService.createOrderFormBasket(user, session, guaranteeDays);
+        return new ResponseEntity<>(Map.of("order", orderEntityToDtoMapper.entityListToDtoList(orders)), HttpStatus.CREATED);
     }
 
     @GetMapping("/by-user-id/{id}")
