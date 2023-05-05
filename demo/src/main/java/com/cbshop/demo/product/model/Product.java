@@ -1,6 +1,6 @@
 package com.cbshop.demo.product.model;
 
-import com.cbshop.demo.enums.Category;
+import com.cbshop.demo.product.enums.Category;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
