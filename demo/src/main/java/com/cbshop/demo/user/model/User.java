@@ -31,7 +31,7 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private Role role;
-    private boolean isVerificated;
+    private boolean isVerified;
 
     public boolean is(Role role) {
         return this.role.equals(role);
@@ -64,7 +64,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return isVerificated;
+        return isVerified;
     }
 
     @Override
@@ -73,11 +73,11 @@ public class User implements UserDetails {
 
         if (!(o instanceof User user)) return false;
 
-        return new EqualsBuilder().append(getId(), user.getId()).append(isVerificated(), user.isVerificated()).append(getFirstName(), user.getFirstName()).append(getLastName(), user.getLastName()).append(getEmail(), user.getEmail()).append(getPassword(), user.getPassword()).append(getRole(), user.getRole()).isEquals();
+        return new EqualsBuilder().append(getId(), user.getId()).append(isVerified(), user.isVerified()).append(getFirstName(), user.getFirstName()).append(getLastName(), user.getLastName()).append(getEmail(), user.getEmail()).append(getPassword(), user.getPassword()).append(getRole(), user.getRole()).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(getId()).append(getFirstName()).append(getLastName()).append(getEmail()).append(getPassword()).append(getRole()).append(isVerificated()).toHashCode();
+        return new HashCodeBuilder(17, 37).append(getId()).append(getFirstName()).append(getLastName()).append(getEmail()).append(getPassword()).append(getRole()).append(isVerified()).toHashCode();
     }
 }

@@ -1,6 +1,6 @@
 package com.cbshop.demo.order.service;
 
-import com.cbshop.demo.exceptions.controlleradvice.ItemNotFoundException;
+import com.cbshop.demo.exceptions.ItemNotFoundException;
 import com.cbshop.demo.order.enums.OrderStatus;
 import com.cbshop.demo.order.model.Order;
 import com.cbshop.demo.order.repository.OrderRepository;

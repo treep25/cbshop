@@ -1,6 +1,6 @@
 package com.cbshop.demo.security;
 
-import com.cbshop.demo.exceptions.controlleradvice.ItemNotFoundException;
+import com.cbshop.demo.exceptions.ItemNotFoundException;
 import com.cbshop.demo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

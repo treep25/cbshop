@@ -14,11 +14,9 @@ public class UserMapper {
 
     public Page<UserDTO> getUserDTOListFromUserList(Page<User> users) {
         List<UserDTO> userDTOs = new ArrayList<>();
-        users.forEach(user -> {
-            userDTOs.add(
-                    getUserDTOFromUser(user)
-            );
-        });
+        users.forEach(user -> userDTOs.add(
+                getUserDTOFromUser(user)
+        ));
         return new PageImpl<>(userDTOs, users.getPageable(), userDTOs.size());
     }
 
@@ -28,7 +26,7 @@ public class UserMapper {
                 .lastName(user.getLastName())
                 .role(user.getRole())
                 .email(user.getEmail())
-                .isVerificated(user.isVerificated())
+                .isVerificated(user.isVerified())
                 .build();
     }
 

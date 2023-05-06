@@ -1,6 +1,6 @@
 package com.cbshop.demo.security;
 
-import com.cbshop.demo.exceptions.controlleradvice.RestAccessDeniedHandler;
+import com.cbshop.demo.exceptions.RestAccessDeniedHandler;
 import com.cbshop.demo.user.role.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
