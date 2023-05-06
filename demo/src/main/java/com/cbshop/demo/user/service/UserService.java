@@ -1,6 +1,6 @@
 package com.cbshop.demo.user.service;
 
-import com.cbshop.demo.exceptions.controlleradvice.ItemNotFoundException;
+import com.cbshop.demo.exceptions.ItemNotFoundException;
 import com.cbshop.demo.user.UpdateActionBuilder;
 import com.cbshop.demo.user.model.User;
 import com.cbshop.demo.user.model.UserDTO;

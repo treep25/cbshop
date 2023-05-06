@@ -1,4 +1,4 @@
-package com.cbshop.demo.exceptions.controlleradvice;
+package com.cbshop.demo.exceptions;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

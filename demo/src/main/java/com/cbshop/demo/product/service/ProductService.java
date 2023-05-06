@@ -1,6 +1,6 @@
 package com.cbshop.demo.product.service;
 
-import com.cbshop.demo.exceptions.controlleradvice.ItemNotFoundException;
+import com.cbshop.demo.exceptions.ItemNotFoundException;
 import com.cbshop.demo.product.builder.ProductUpdateActionsBuilder;
 import com.cbshop.demo.product.mapper.ProductDtoToEntityMapper;
 import com.cbshop.demo.product.model.Product;
