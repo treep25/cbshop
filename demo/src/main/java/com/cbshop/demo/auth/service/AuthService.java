@@ -74,8 +74,9 @@ public class AuthService {
             checkIfVerificationCodeAlreadyExists(user);
             forgotPasswordCodeRepo.save(forgotPasswordCode);
             mailSenderService.sendForgotPasswordVerificationCodeToEmail(user, forgotPasswordCode.getForgotPasswordCode());
+        } else {
+            throw new AccessDeniedException("You were registered with google or your account is not verified");
         }
-        throw new AccessDeniedException("You were registered with google or your account is not verified");
     }
 
     @Transactional
