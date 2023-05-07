@@ -3,12 +3,13 @@ package com.cbshop.demo.forgotpasswordcode;
 import com.cbshop.demo.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.Hibernate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
+import java.util.Objects;
 
-@EqualsAndHashCode(callSuper = false)
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,5 +29,18 @@ public class ForgotPasswordCode {
     public boolean isValid() {
         long thirtyMin = 1000 * 60 * 30;
         return new Date().before(new Date(createDate.getTime() + thirtyMin));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        ForgotPasswordCode that = (ForgotPasswordCode) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
