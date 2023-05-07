@@ -32,12 +32,13 @@ public class DataValidation {
         }
     }
 
-    public static boolean isEmailCorrect(String email) {
-        String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
-                              + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+    public static void isEmailCorrect(String email) {
+        String regexPattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
         Pattern pattern = Pattern.compile(regexPattern);
         Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
+        if (!matcher.matches()) {
+            throw new InvalidDataException("Invalid email. Check your input");
+        }
     }
 
     public static boolean isPasswordCorrect(String password) {
@@ -50,10 +51,13 @@ public class DataValidation {
         return false;
     }
 
-    public static boolean isChangeUserPasswordRequestCorrect(ChangeUserPasswordRequest request) {
-        return request.getPassword() != null && isPasswordCorrect(request.getPassword())
-               && request.getRepeatPassword() != null && request.getPassword().equals(request.getRepeatPassword())
-               && request.getForgotPasswordCode() != null && request.getForgotPasswordCode().length() == 50;
+    public static void isChangeUserPasswordRequestCorrect(ChangeUserPasswordRequest request) {
+        if (!(request.getPassword() != null && isPasswordCorrect(request.getPassword())
+              && request.getRepeatPassword() != null && request.getPassword().equals(request.getRepeatPassword())
+              && request.getForgotPasswordCode() != null && request.getForgotPasswordCode().length() == 50)) {
+            throw new InvalidDataException("Invalid password. Check your inputs");
+        }
+        
     }
 
     public static void isUserValidForRegistration(RegistrationRequest registrationRequest) {

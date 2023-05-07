@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -47,20 +46,18 @@ public class OrderService {
     }
 
     public Page<Order> createOrderFormBasket(User user, HttpSession session, int guaranteeDays) {
-        List<Product> basketFromSession = sessionManager.getBasketFromSession(session);
-        if (basketFromSession == null) {
-            throw new ItemNotFoundException("There are no products in basket");
-        }
+        sessionManager.getBasketFromSession(session)
+                .orElseThrow(() -> new ItemNotFoundException("There are no products in basket"))
+                .forEach(product -> orderRepository
+                        .save(Order
+                                .builder()
+                                .product(product)
+                                .user(user)
+                                .price(product.getPrice())
+                                .guarantee(getGuarantee(guaranteeDays))
+                                .orderStatus(OrderStatus.DONE)
+                                .build()));
 
-        basketFromSession
-                .forEach(product -> orderRepository.save(Order
-                        .builder()
-                        .product(product)
-                        .user(user)
-                        .price(product.getPrice())
-                        .guarantee(getGuarantee(guaranteeDays))
-                        .orderStatus(OrderStatus.DONE)
-                        .build()));
         sessionManager.clearBasket(session);
         return getOrdersByUserId(user.getId(), 0, 10);
     }
