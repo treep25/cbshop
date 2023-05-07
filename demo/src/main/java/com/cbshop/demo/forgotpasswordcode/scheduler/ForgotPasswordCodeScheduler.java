@@ -18,7 +18,7 @@ public class ForgotPasswordCodeScheduler {
     private final ForgotPasswordCodeRepo repo;
 
     @Scheduled(initialDelay = 30, fixedRate = 60, timeUnit = TimeUnit.SECONDS)
-    public void pb24() {
+    public void deletingExpiringTokens() {
         forgotPasswordSession.getAllCodes()
                 .stream()
                 .filter(ForgotPasswordCode::isValid)
