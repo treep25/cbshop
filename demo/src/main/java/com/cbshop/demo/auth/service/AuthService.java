@@ -88,8 +88,9 @@ public class AuthService {
             forgotPasswordCodeRepo.deleteById(forgotPasswordCode.getId());
             user.setPassword(passwordEncoder.encode(request.getPassword()));
             userRepository.save(user);
+        } else {
+            throw new InvalidDataException("Token already expired");
         }
-        throw new InvalidDataException("Token already expired");
     }
 
     private void checkIfVerificationCodeAlreadyExists(User user) {
@@ -123,6 +124,7 @@ public class AuthService {
         mailSenderService.sendEmailConfirmation(user, verificationToken);
     }
 
+    @Transactional
     public Map<String, ?> registerUser(RegistrationRequest registrationRequest) {
         if (!userRepository.existsByEmail(registrationRequest.getEmail())) {
             if (registrationRequest.getPassword()
