@@ -33,6 +33,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/auth/**", "/error")
                 .permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/auth/**")
+                .permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/order/**", "/api/v1/order/basket")
                 .hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
                 .requestMatchers(HttpMethod.GET, "/api/v1/order/by-user-id/**", "/api/v1/users/**", "/api/v1/products", "/api/v1/products/**")
